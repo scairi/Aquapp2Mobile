@@ -1,0 +1,3 @@
+rootProject.name = 'Aquapp2Mobile'
+
+include ':app'
