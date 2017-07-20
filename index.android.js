@@ -1,10 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+import React from 'react';
+import SplashScreen from './components/SlpashScreen'
+let MapView = require('react-native-maps');
 import {
   AppRegistry,
   StyleSheet,
@@ -12,42 +8,53 @@ import {
   View
 } from 'react-native';
 
-export default class Aquapp2Mobile extends Component {
+export default class Aquapp2Mobile extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { splash: true }
+  }
+
+  componentDidMount = () => {
+    setTimeout(() => { this.setState({ splash: false }) }, 1500)
+  }
+
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+      this.state.splash ?
+        <SplashScreen /> :
+        <View style={styles.container}>
+          <MapView style={styles.map}
+           region={{ latitude: 4.0000000, longitude: -72.0000000, latitudeDelta: 15, longitudeDelta: 15 }}  
+            />
+        </View>);
+
   }
+
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderWidth: 0, 
+    zIndex: 100
   },
 });
+
+
 
 AppRegistry.registerComponent('Aquapp2Mobile', () => Aquapp2Mobile);
